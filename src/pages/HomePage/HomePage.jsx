@@ -24,9 +24,10 @@ const HomePage = () => {
     };
     getTrends();
   }, []);
-
+console.log(trendResult)
   return (
     <section>
+      <h1 className="visually-hidden">Popular movies</h1>
       {loader && <Loader/>}
       {!error ? <MovieList listResult={trendResult} /> : <p>Something went wrong. Try again</p>}
     </section>

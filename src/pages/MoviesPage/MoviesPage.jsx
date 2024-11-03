@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { fetchMovieByName } from "../../servises/search";
+import { searchMovieByName } from "../../servises/search";
 import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
 import SearchFilms from "../../components/searchFilms/searchFilms";
@@ -21,7 +21,7 @@ const MoviesPage = () => {
       }
       try {
         setLoader(true);
-        const response = await fetchMovieByName(name);
+        const response = await searchMovieByName(name);
         setListByName(response.results);
         console.log(response.results);
         setQuery("");

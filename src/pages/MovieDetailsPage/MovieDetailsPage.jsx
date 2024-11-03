@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { fetchMovieById } from "../../servises/search";
+import { searchMovieById } from "../../servises/search";
 import Loader from "../../components/Loader/Loader";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
+  const navigate = useNavigate();
+
+  const goBack = () => navigate(-1)
 
   const [filmPageInfo, setFilmPageInfo] = useState({});
   const [loader, setLoader] = useState(true);
@@ -16,7 +20,7 @@ const MovieDetailsPage = () => {
       try {
         setLoader(true);
         if (movieId) {
-          const response = await fetchMovieById(movieId);
+          const response = await searchMovieById(movieId);
           setFilmPageInfo(response);
         }
       } catch (error) {
@@ -34,9 +38,13 @@ const MovieDetailsPage = () => {
     <>
       {loader && <Loader />}
       {!error ? (
-        <div>
+        <section>
+          <button onClick={goBack}>Go back</button>
           <div>
-            <img src={backdrop_path} alt="title" />
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
+              alt="title"
+            />
           </div>
           <div>
             <h1>{title}</h1>
@@ -49,8 +57,16 @@ const MovieDetailsPage = () => {
                 <li key={id}>{name}</li>
               ))}
             </ul>
+            <ul>
+              <li>
+                <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+              </li>
+              <li>
+                <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+              </li>
+            </ul>
           </div>
-        </div>
+        </section>
       ) : (
         <p>Page not found</p>
       )}
