@@ -5,27 +5,25 @@ import { searchMovieByName } from "../../servises/search";
 import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
 import SearchFilms from "../../components/searchFilms/searchFilms";
+import { useSearchParams } from "react-router-dom";
 
 const MoviesPage = () => {
-  const [query, setQuery] = useState(() => {
-    const saveQuery = localStorage.getItem("query");
-    return saveQuery ? JSON.parse(saveQuery) : "";
-  });
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loader, setLoader] = useState(false);
   const [listByName, setListByName] = useState([]);
 
-  const takeQuery = (name) => {
-    setQuery(name);
+  const takeQuery = (query) => {
+    setSearchParams({ query });
   };
 
   useEffect(() => {
-    const searchByName = async (name) => {
-      if (!name) {
-        return;
-      }
+    const query = searchParams.get("query") ?? "";
+    if (!query) return;
+
+    const searchByName = async () => {
       try {
         setLoader(true);
-        const response = await searchMovieByName(name);
+        const response = await searchMovieByName(query);
         setListByName(response.results);
       } catch (error) {
         console.error(error);
@@ -33,9 +31,8 @@ const MoviesPage = () => {
         setLoader(false);
       }
     };
-    searchByName(query);
-    localStorage.setItem("query", JSON.stringify(query));
-  }, [query]);
+    searchByName();
+  }, [searchParams]);
 
   return (
     <section className={css.moviesPageStyle}>

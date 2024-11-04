@@ -1,6 +1,6 @@
 import css from "./MovieDetailsPage.module.css";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { searchMovieById } from "../../servises/search";
 
@@ -8,13 +8,16 @@ import Loader from "../../components/Loader/Loader";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
-  const navigate = useNavigate();
 
-  const goBack = () => navigate(-1);
+  // const navigate = useNavigate();
+  // const goBack = () => navigate(-1);
 
   const [filmPageInfo, setFilmPageInfo] = useState({});
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState(false);
+
+  const location = useLocation();
+  const backLinkHref = useRef(location.state?.from || "/");
 
   useEffect(() => {
     const resultById = async () => {
@@ -40,9 +43,9 @@ const MovieDetailsPage = () => {
       {loader && <Loader />}
       {!error ? (
         <section className={css.filmDetails}>
-          <button onClick={goBack} className={css.goBack}>
+          <Link to={backLinkHref.current} className={css.goBack}>
             Go back
-          </button>
+          </Link>
           <div className={css.filmDetailsInner}>
             <div className={css.imgContainer}>
               {backdrop_path ? (
@@ -81,20 +84,20 @@ const MovieDetailsPage = () => {
             <li>
               <Link
                 className={css.moreInfo_link}
-                to={`/movies/${movieId}/reviews`}
+                to={'reviews'}
               >
                 Reviews
               </Link>
             </li>
             <li>
-              <Link
-                className={css.moreInfo_link}
-                to={`/movies/${movieId}/cast`}
-              >
+              <Link className={css.moreInfo_link} to={'cast'}>
                 Cast
               </Link>
             </li>
           </ul>
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
         </section>
       ) : (
         <p>Page not found</p>

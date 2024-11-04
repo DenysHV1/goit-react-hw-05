@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { searchMovieReviews } from "../../servises/search";
 
 import Loader from "../Loader/Loader";
-import MovieDetailsPage from "../../pages/MovieDetailsPage/MovieDetailsPage";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -33,7 +32,6 @@ const MovieReviews = () => {
   return (
     <div>
       {loader && <Loader />}
-      <MovieDetailsPage />
       <ul className={css.reviews_list}>
         {reviews ? (
           reviews?.map(({ id, author, content, author_details }) => (

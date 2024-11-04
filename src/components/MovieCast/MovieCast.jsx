@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { searchMovieCast } from "../../servises/search";
 
 import Loader from "../Loader/Loader";
-import MovieDetailsPage from "../../pages/MovieDetailsPage/MovieDetailsPage";
 
 const MovieCast = () => {
   const { movieId } = useParams();
@@ -29,7 +28,6 @@ const MovieCast = () => {
   return (
     <div>
       {loader && <Loader />}
-      <MovieDetailsPage />
       <ul className={css.cast_list}>
         {cast ? (
           cast?.map(
