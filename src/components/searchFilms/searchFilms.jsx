@@ -1,4 +1,5 @@
 import { useState } from "react";
+import css from "./searchFilms.module.css";
 
 const SearchFilms = ({ takeQuery }) => {
   const [query, setQuery] = useState("");
@@ -11,15 +12,18 @@ const SearchFilms = ({ takeQuery }) => {
     takeQuery(query.toLowerCase().trim());
     e.target.reset();
   };
-  
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={css.search_form} onSubmit={handleSubmit}>
       <input
+        className={css.search_input}
         type="text"
         onChange={(e) => setQuery(e.target.value)}
         value={query}
       />
-      <button type="submit">Search</button>
+      <button className={css.search_button} type="submit">
+        Search
+      </button>
     </form>
   );
 };

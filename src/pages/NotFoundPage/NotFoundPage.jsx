@@ -1,5 +1,12 @@
+import css from "./NotFoundPage.module.css";
+
 const NotFoundPage = () => {
-  return <div>NOT FOUND 404</div>;
+  return (
+    <div className={css.notFound}>
+      <h1 className="visually-hidden">NOT FOUND</h1>
+      <p>NOT FOUND 404</p>
+    </div>
+  );
 };
 
 export default NotFoundPage;

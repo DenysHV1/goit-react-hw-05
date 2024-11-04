@@ -1,6 +1,8 @@
+import css from "./MovieCast.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { searchMovieCast } from "../../servises/search";
+
 import Loader from "../Loader/Loader";
 import MovieDetailsPage from "../../pages/MovieDetailsPage/MovieDetailsPage";
 
@@ -27,23 +29,26 @@ const MovieCast = () => {
   return (
     <div>
       {loader && <Loader />}
-      <MovieDetailsPage/>
-      <ul>
+      <MovieDetailsPage />
+      <ul className={css.cast_list}>
         {cast ? (
-          cast?.map(({ character, id, name, profile_path }) => profile_path && (
-            <li key={id}>
-              <div>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
-                  alt={name}
-                />
-              </div>
-			  <h3>{name}</h3>
-			  <p>{character}</p>
-            </li>
-          ))
+          cast?.map(
+            ({ character, id, name, profile_path }) =>
+              profile_path && (
+                <li key={id} className={css.cast_item}>
+                  <div>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
+                      alt={name}
+                    />
+                  </div>
+                  <h3>{name}</h3>
+                  <p>{character}</p>
+                </li>
+              )
+          )
         ) : (
-          <li>Error</li>
+          <li>Error 404</li>
         )}
       </ul>
     </div>

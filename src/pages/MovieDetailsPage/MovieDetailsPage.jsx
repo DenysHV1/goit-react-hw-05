@@ -1,15 +1,16 @@
+import css from "./MovieDetailsPage.module.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 import { searchMovieById } from "../../servises/search";
+
 import Loader from "../../components/Loader/Loader";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const navigate = useNavigate();
 
-  const goBack = () => navigate(-1)
+  const goBack = () => navigate(-1);
 
   const [filmPageInfo, setFilmPageInfo] = useState({});
   const [loader, setLoader] = useState(true);
@@ -38,34 +39,62 @@ const MovieDetailsPage = () => {
     <>
       {loader && <Loader />}
       {!error ? (
-        <section>
-          <button onClick={goBack}>Go back</button>
-          <div>
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
-              alt="title"
-            />
+        <section className={css.filmDetails}>
+          <button onClick={goBack} className={css.goBack}>
+            Go back
+          </button>
+          <div className={css.filmDetailsInner}>
+            <div className={css.imgContainer}>
+              {backdrop_path ? (
+                <img
+                  className={css.imgFilm}
+                  src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
+                  alt="title"
+                />
+              ) : (
+                <img
+                  className={css.imgFilm}
+                  src={`https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg`}
+                  alt="title"
+                />
+              )}
+            </div>
+            <div className={css.filmInfo}>
+              <h1 className={css.film_title}>{title}</h1>
+              <p className={css.user_score}>
+                User score: <span>{vote_average}%</span>
+              </p>
+              <ul className={css.genresList}>
+                <li className={css.genres_firstItem}>Genres:</li>
+                {genres?.map(({ id, name }) => (
+                  <li key={id} className={css.genres_item}>
+                    {name}
+                  </li>
+                ))}
+              </ul>
+              <p className={css.film_description}>
+                Overview: <span>{overview}</span>
+              </p>
+            </div>
           </div>
-          <div>
-            <h1>{title}</h1>
-            <p>User score: {vote_average}%</p>
-            <p>Overview</p>
-            <p>{overview}</p>
-            <p>Genres</p>
-            <ul>
-              {genres?.map(({ id, name }) => (
-                <li key={id}>{name}</li>
-              ))}
-            </ul>
-            <ul>
-              <li>
-                <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-              </li>
-              <li>
-                <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-              </li>
-            </ul>
-          </div>
+          <ul className={css.moreInfoList}>
+            <li>
+              <Link
+                className={css.moreInfo_link}
+                to={`/movies/${movieId}/reviews`}
+              >
+                Reviews
+              </Link>
+            </li>
+            <li>
+              <Link
+                className={css.moreInfo_link}
+                to={`/movies/${movieId}/cast`}
+              >
+                Cast
+              </Link>
+            </li>
+          </ul>
         </section>
       ) : (
         <p>Page not found</p>

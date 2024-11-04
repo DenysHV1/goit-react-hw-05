@@ -8,22 +8,24 @@ const MovieList = ({ listResult = [] }) => {
   );
   return (
     <div className={css.movieListContainer}>
-      {filterResult.length > 0 &&
-        filterResult?.map(({ id, title, backdrop_path }) => {
-          return (
-            <Link key={id} to={`/movies/${id}`}>
-              <img
-                src={
-                  backdrop_path
-                    ? `https://image.tmdb.org/t/p/w500/${backdrop_path}`
-                    : `https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg`
-                }
-                alt=""
-              />
-              <h2>{title}</h2>
-            </Link>
-          );
-        })}
+      <ul className={css.movieList}>
+        {filterResult.length > 0 &&
+          filterResult?.map(({ id, title, backdrop_path }) => {
+            return (
+              backdrop_path && (
+                <li className={css.movie_item} key={id}>
+                  <Link className={css.movie_link} to={`/movies/${id}`}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
+                      alt={title}
+                    />
+                    <h2 className={css.list_item_title}>{title}</h2>
+                  </Link>
+                </li>
+              )
+            );
+          })}
+      </ul>
     </div>
   );
 };

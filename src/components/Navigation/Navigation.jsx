@@ -1,27 +1,34 @@
 import { NavLink, Outlet } from "react-router-dom";
-import css from './Navigation.module.css'
+import css from "./Navigation.module.css";
 
 const Navigation = () => {
-
-const setActive = ({isActive}) => isActive ? css.activeLink : css.noActiveLink;
-
+  const setActive = ({ isActive }) =>
+    isActive ? css.activeLink : css.noActiveLink;
 
   return (
     <>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to={"/"} className={setActive}>Home</NavLink>
-            </li>
-            <li>
-              <NavLink to={"/movies"} className={setActive}>Movies</NavLink>
-            </li>
-          </ul>
-        </nav>
+      <header className={css.header}>
+        <div className="container">
+          <nav>
+            <ul className={css.navList}>
+              <li>
+                <NavLink to={"/"} className={setActive}>
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to={"/movies"} className={setActive}>
+                  Movies
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </header>
       <main>
-      <Outlet/>
+        <div className="container">
+          <Outlet />
+        </div>
       </main>
       <footer></footer>
     </>

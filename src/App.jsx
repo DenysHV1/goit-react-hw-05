@@ -11,13 +11,13 @@ const MovieDetailsPage = lazy(() =>
 );
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
 
-import MovieCast from './components/MovieCast/MovieCast';
-import MovieReviews from './components/MovieReviews/MovieReviews';
+import MovieCast from "./components/MovieCast/MovieCast";
+import MovieReviews from "./components/MovieReviews/MovieReviews";
 
 function App() {
   return (
     <>
-      <Suspense fallback={<Loader/>}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Navigation />}>
             <Route index element={<HomePage />} />
