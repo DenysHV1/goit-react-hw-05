@@ -7,6 +7,7 @@ const MovieList = ({ listResult = [] }) => {
       arr.findIndex((item) => item.title === title) === index
   );
   const location = useLocation();
+  console.log(location)
   return (
     <div className={css.movieListContainer}>
       <ul className={css.movieList}>
@@ -15,7 +16,7 @@ const MovieList = ({ listResult = [] }) => {
             return (
               backdrop_path && (
                 <li className={css.movie_item} key={id}>
-                  <Link className={css.movie_link} to={`/movies/${id}`} state={{ from: location }}>
+                  <Link className={css.movie_link} to={`/movies/${id}`} state={{from: location}}>
                     <img
                       src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
                       alt={title}
