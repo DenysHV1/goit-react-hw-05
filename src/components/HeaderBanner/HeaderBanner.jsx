@@ -2,6 +2,7 @@ import css from "./HeaderBanner.module.css";
 
 import bannerBg from "./background.jpg";
 import bannerVideo from "./Titanic.mp4";
+import { Link } from "react-router-dom";
 
 const HeaderBanner = () => {
   return (
@@ -13,8 +14,7 @@ const HeaderBanner = () => {
           or generally gets people psyched to keep scrolling.{" "}
         </p>
         <div>
-          <a href="#movies">Movies</a>
-          <button>Favorites</button>
+          <Link to="movies">Movies</Link>
         </div>
       </div>
       <video autoPlay muted loop>
