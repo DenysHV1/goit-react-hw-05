@@ -7,7 +7,7 @@ const MovieList = ({ listResult = [] }) => {
       arr.findIndex((item) => item.title === title) === index
   );
   const location = useLocation();
-  console.log(location)
+
   return (
     <div className={css.movieListContainer}>
       <ul className={css.movieList}>

@@ -1,6 +1,7 @@
 import css from "./HomePage.module.css";
 import { useEffect, useState } from "react";
 import { searchTrendMovies } from "../../servises/search";
+import HeaderBanner from '../../components/HeaderBanner/HeaderBanner'
 
 import MovieList from "../../components/MovieList/MovieList";
 import Loader from "../../components/Loader/Loader";
@@ -30,7 +31,7 @@ const HomePage = () => {
   console.log(trendResult);
   return (
     <section className={css.homePageSection}>
-      <h1 className={css.homePageTitle}>Popular movies</h1>
+      <HeaderBanner/>
       {loader && <Loader />}
       {!error ? <MovieList listResult={trendResult} /> : <Error />}
     </section>
